@@ -17,15 +17,14 @@ class TestComponent extends React.Component {
   }
 
   render() {
-    if (this.state.value !== '') {
-      return(
-        <div>
-          {this.state.value}
-        </div>
-      );
-    } else {
+    if (this.state.value === '') {
       return (<div>Loading...</div>);
     }
+    return(
+      <div>
+        {this.state.value}
+      </div>
+    );
   }
 }
 
