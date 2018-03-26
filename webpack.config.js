@@ -1,19 +1,30 @@
-const path = require('path');
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import LiveReloadPlugin from 'webpack-livereload-plugin';
 
-const DIST_DIR   = path.join(__dirname, 'dist'),
-  CLIENT_DIR = path.join(__dirname, 'src');
-
-module.exports = {
-	context: CLIENT_DIR,
-
-	entry: './main',
-
-	output: {
-		path:     DIST_DIR,
-		filename: 'bundle.js'
-	},
-
-	resolve: {
-		extensions: ['', '.js']
-	}
+export default {
+  entry: './client/index.js',
+  output: {
+    path: '/',
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        use: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      },
+      {
+        use: ['style-loader', 'css-loader'],
+        test: /\.css$/
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'client/index.html'
+    }),
+    new LiveReloadPlugin()
+  ]
 };
