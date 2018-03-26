@@ -10,7 +10,7 @@ class TestComponent extends React.Component {
     }
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     fetch('/api')
       .then(response => response.json())
       .then(data => this.setState({ value: data.greeting }));
