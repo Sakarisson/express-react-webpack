@@ -9,9 +9,11 @@ app.use(webpackMiddleware(webpack(webpackConfig)));
 const api = express.Router();
 
 api.get('/', (req, res) => {
-  res.send({
-    data: 'Hello'
-  });
+  setTimeout(() => {
+    res.send({
+      greeting: 'Hello'
+    });
+  }, 5000);
 });
 
 app.use('/api', api);

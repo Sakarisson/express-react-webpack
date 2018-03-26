@@ -6,22 +6,26 @@ class TestComponent extends React.Component {
   constructor() {
     super();
     this.state = {
-      value: 0
+      value: ''
     }
-    setInterval(() => {
-      let value = this.state.value;
-      value++;
-      this.setState({ value });
-    }, 1000);
+  }
+
+  componentWillMount() {
+    fetch('/api')
+      .then(response => response.json())
+      .then(data => this.setState({ value: data.greeting }));
   }
 
   render() {
-    return(
-      <div>
-        <p>This is a test component</p>
-        {this.state.value}
-      </div>
-    );
+    if (this.state.value !== '') {
+      return(
+        <div>
+          {this.state.value}
+        </div>
+      );
+    } else {
+      return (<div>Loading...</div>);
+    }
   }
 }
 
