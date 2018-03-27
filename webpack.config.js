@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
+import htmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,7 +9,7 @@ dotenv.config();
 export default {
   entry: ['babel-polyfill', './client/index.js'],
   output: {
-    path: '/',
+    path: __dirname + '/',
     filename: 'bundle.js'
   },
   module: {
@@ -27,9 +28,12 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'client/index.html'
+      template: 'client/index.html',
+      alwaysWriteToDisk: true,
+      hash: true
     }),
-    new LiveReloadPlugin()
+    new LiveReloadPlugin(),
+    new htmlWebpackHarddiskPlugin()
   ],
   mode: process.env.MODE
 };

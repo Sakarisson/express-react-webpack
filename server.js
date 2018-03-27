@@ -1,10 +1,13 @@
 import express from 'express';
 import webpack from 'webpack';
+import path from 'path';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from './webpack.config';
 
+const compiler = webpack(webpackConfig);
+
 const app = express();
-app.use(webpackMiddleware(webpack(webpackConfig)));
+app.use(webpackMiddleware(compiler));
 
 const api = express.Router();
 
@@ -19,6 +22,10 @@ api.use((req, res) => {
 });
 
 app.use('/api', api);
+
+app.use('*', function (req, res) {
+  res.sendFile(path.join(compiler.outputPath, 'index.html'));
+});
 
 app.listen(4000, () => {
   console.log('Listening');
