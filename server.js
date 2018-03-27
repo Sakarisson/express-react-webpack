@@ -9,11 +9,13 @@ app.use(webpackMiddleware(webpack(webpackConfig)));
 const api = express.Router();
 
 api.get('/', (req, res) => {
-  setTimeout(() => {
-    res.send({
-      greeting: 'Hello'
-    });
-  }, 5000);
+  res.send({
+    greeting: 'Hello'
+  });
+});
+
+api.use((req, res) => {
+  res.status(404).send('404 - Not Found');
 });
 
 app.use('/api', api);

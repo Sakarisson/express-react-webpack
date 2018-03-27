@@ -1,6 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
+
 import './style/style.css';
+
+import Home from './Components/Home';
 
 class TestComponent extends React.Component {
   constructor() {
@@ -30,13 +39,18 @@ class TestComponent extends React.Component {
 
 const App = () => {
   return (
-    <div>
-      <TestComponent />
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route render={() => (<Redirect to="/" />)} />
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
-ReactDOM.render(
+render(
   <App />,
   document.querySelector('#root')
 );

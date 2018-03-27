@@ -26,9 +26,10 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      filename: 'index.html',
       template: 'client/index.html'
     }),
     new LiveReloadPlugin()
   ],
-  mode: process.env.MODE || 'production'
+  mode: process.env.MODE
 };
